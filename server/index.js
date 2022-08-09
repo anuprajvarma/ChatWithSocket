@@ -3,7 +3,6 @@ const app = express();
 const http = require('http');
 const cors = require('cors')
 const { Server } = require('socket.io');
-const { Socket } = require('dgram');
 
 app.use(cors());
 
@@ -24,6 +23,7 @@ io.on("connection", (socket) => {
         console.log(`User with id : ${socket.id + data} +joined room`)
     })
     socket.on("send_message", (data) => {
+        console.log(data)
         socket.to(data.room).emit("receive_message", data)
     })
     socket.on("disconnect", () => {
